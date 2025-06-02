@@ -13,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 0;
+    position: fixed;
 }
 
 .sideNav li img {
@@ -29,4 +30,6 @@
     color: white;
     transform: rotate(180deg);
     writing-mode: vertical-lr;
+    margin-top: 624px;
+    font-size: 12px;
 }
