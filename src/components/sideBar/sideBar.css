@@ -1,0 +1,32 @@
+.sideBar {
+    background-color: black;
+    width: 116px;
+    height: 840px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sideNav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+}
+
+.sideNav li img {
+    text-decoration: none;
+    background-color: white;
+    margin-right: 57px;
+    margin-bottom: 20px;
+    width: 40px;
+    padding: 8px;
+    border-radius: 7px;
+}
+
+.copyright {
+    color: white;
+    transform: rotate(180deg);
+    writing-mode: vertical-lr;
+}
