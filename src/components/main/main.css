@@ -17,14 +17,20 @@
 
 .all-container {
     display: grid;
-    grid-template-columns: 3fr 1fr; 
+    grid-template-columns: 3fr 3fr 3fr 2fr;
+    grid-template-rows: auto auto;
     gap: 2rem;
     width: 100%;
+    align-items: start;
 }
 
 .recharts-container {
     width: 100%;
     height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    grid-column: 1 / span 3;
+    grid-row: 1;
 }
 
 .custom-tooltip {
@@ -38,13 +44,14 @@
     flex-direction: column;
     justify-content: space-evenly;
     height: 100%;
-    gap: 2rem;
+    grid-column: 4;
+    grid-row: 1 / span 2;
 }
 
 .keydata-item {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
     background: #f9f9f9;
     border-radius: 8px;
     padding: 1rem;
@@ -54,4 +61,46 @@
 .keydata-item img {
     width: 50px;
     height: 50px;
+}
+
+.average-sessions-card {
+    background: red;
+    border-radius: 10px;
+    color: #fff;
+    padding: 1rem;
+    height: 100%;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.average-sessions-title {
+    opacity: 0.5;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.radar-card {
+    background: #232323;
+    border-radius: 10px;
+    color: #fff;
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.score-card {
+    background: #fff;
+    border-radius: 10px;
+    color: #333;
+    padding: 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 3;
+    grid-row: 2;
 }
