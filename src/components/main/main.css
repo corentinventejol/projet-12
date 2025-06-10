@@ -1,8 +1,13 @@
 .main {
     padding-left: 100px;
-    padding-top: 70px;
+    padding-top: 30px;;
     width: 100%;
     overflow: scroll;
+    background-color: white;
+}
+
+.main h1 {
+    margin-top: 0;
 }
 
 .profile-title {
@@ -27,7 +32,7 @@
 .recharts-container {
     width: 100%;
     height: 100%;
-    background: #fff;
+    background: rgba(0, 0, 0, 0.02);
     border-radius: 10px;
     grid-column: 1 / span 3;
     grid-row: 1;
@@ -58,9 +63,32 @@
     width: 258px;
 }
 
+.keydata-item-calories {
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.keydata-item-protein {
+    background-color: rgba(74, 184, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.keydata-item-glucides {
+    background-color: rgba(249, 206, 35, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.keydata-item-lipides {
+    background-color: rgba(253, 81, 129, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+}
+
 .keydata-item img {
-    width: 50px;
-    height: 50px;
+    width: 25px;
 }
 
 .average-sessions-card {
@@ -92,15 +120,29 @@
     grid-row: 2;
 }
 
-.score-card {
-    background: #fff;
-    border-radius: 10px;
-    color: #333;
-    padding: 1rem;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-column: 3;
-    grid-row: 2;
+.score-card-center {
+    position: absolute;
+    top: 66%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    text-align: center;
+    width: 100%;
+}
+
+.score-card-center span {
+    display: block;
+}
+
+.score-card-percent {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #282D30;
+}
+
+.score-card-objectif {
+    color: #74798C;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    line-height: 1.2;
 }

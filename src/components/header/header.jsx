@@ -10,7 +10,7 @@ const header = () => {
             </div>
             <ul className='nav'>
                 <li>
-                    <a href="/">Acceuil</a>
+                    <a href="../../pages/home.jsx">Acceuil</a>
                 </li>
                 <li>
                     <a href="/">Profil</a>
