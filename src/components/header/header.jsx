@@ -1,8 +1,8 @@
 import './header.css';
 import logo from '../../assets/logo.png';
+import { Link } from 'react-router-dom';
 
-
-const header = () => {
+const Header = () => {
     return (
         <header className='header'>
             <div className='logo'>
@@ -10,20 +10,20 @@ const header = () => {
             </div>
             <ul className='nav'>
                 <li>
-                    <a href="../../pages/home.jsx">Acceuil</a>
+                    <Link to="/">Accueil</Link>
                 </li>
                 <li>
-                    <a href="/">Profil</a>
+                    <Link to="/">Profil</Link>
                 </li>
                 <li>
-                    <a href="/">Règlage</a>
+                    <Link to="/">Réglage</Link>
                 </li>
                 <li>
-                    <a href="/">Communauté</a>
+                    <Link to="/">Communauté</Link>
                 </li>
             </ul>
         </header>
     )
 }
 
-export default header;
+export default Header;

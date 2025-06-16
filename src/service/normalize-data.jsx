@@ -5,35 +5,39 @@ const useApi = import.meta.env.VITE_USE_API === 'true';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 const DEFAULT_USER_ID = 12;
 
-export async function normalizeUsers() {
+export async function normalizeUsers(userId) {
     const useApi = import.meta.env.VITE_USE_API === 'true';
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
     if (useApi) {
+        if (!userId) return [];
         try {
-            const response = await axios.get(`${API_URL}/user`);
-            const users = response.data && response.data.data ? response.data.data : [];
-            return users.map(user => ({
+            const response = await axios.get(`${API_URL}/user/${userId}`);
+            const user = response.data && response.data.data ? response.data.data : null;
+            if (!user) return [];
+            return [{
                 id: user.id,
                 firstName: user.userInfos.firstName,
                 lastName: user.userInfos.lastName,
                 age: user.userInfos.age,
                 score: user.score || user.todayScore || 0,
                 keyData: user.keyData
-            }));
+            }];
         } catch (error) {
             console.error('Erreur API normalizeUsers:', error);
             return [];
         }
     } else {
-        return USER_MAIN_DATA.map(user => ({
+        const user = USER_MAIN_DATA.find(user => user.id === userId);
+        if (!user) return [];
+        return [{
             id: user.id,
             firstName: user.userInfos.firstName,
             lastName: user.userInfos.lastName,
             age: user.userInfos.age,
             score: user.score || user.todayScore || 0,
             keyData: user.keyData
-        }));
+        }];
     }
 }
 

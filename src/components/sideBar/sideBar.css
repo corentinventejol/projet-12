@@ -33,3 +33,13 @@
     margin-top: 624px;
     font-size: 12px;
 }
+
+@media (width: 1024px) {
+    .sideNav {
+        position: unset;
+    }
+
+    .copyright {
+        margin-top: 10px;
+    }
+}

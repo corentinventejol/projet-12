@@ -10,9 +10,7 @@ import keydataImg2 from '../../assets/keydata_img2.png';
 import keydataImg3 from '../../assets/keydata_img3.png';
 import keydataImg4 from '../../assets/keydata_img4.png';
 
-const userId = 12;
-
-function Main() {
+function Main({ userId }) {
     const [activityData, setActivityData] = useState(null);
     const [averageSessionsData, setAverageSessionsData] = useState([]);
     const [performanceData, setPerformanceData] = useState(null);
@@ -22,15 +20,13 @@ function Main() {
 
     useEffect(() => {
         async function fetchData() {
-            console.log('VITE_USE_API:', import.meta.env.VITE_USE_API);
-
             // Récupère les infos utilisateur depuis l'API ou mock
             const userKeyData = await normalizeKeyData(userId);
             setKeyData(userKeyData);
 
-            // Récupère le prénom
-            const users = await normalizeUsers();
-            const user = users.find(u => u.id === userId);
+            // Récupère le prénom et le score
+            const users = await normalizeUsers(userId);
+            const user = users[0];
             if (user) {
                 setFirstName(user.firstName);
                 setScore(user.score);
@@ -46,7 +42,7 @@ function Main() {
             setPerformanceData(performance);
         }
         fetchData();
-    }, []);
+    }, [userId]);
 
     return (
         <main className='main'>
