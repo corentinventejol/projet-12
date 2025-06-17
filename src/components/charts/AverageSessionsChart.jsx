@@ -16,7 +16,10 @@ function AverageSessionsChart({ data }) {
         <div className="average-sessions-card">
             <div className="average-sessions-title">Durée moyenne des sessions</div>
             <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={data}>
+                <LineChart
+                    data={data}
+                    margin={{bottom: 100 }}
+                >
                     <XAxis dataKey="dayLabel" axisLine={false} tickLine={false} stroke="#fff" />
                     <Tooltip content={<CustomAverageTooltip />} />
                     <Line type="monotone" dataKey="sessionLength" stroke="#fff" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#fff" }} />

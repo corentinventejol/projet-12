@@ -51,9 +51,11 @@ function Main({ userId }) {
             </h1>
             <div className="all-container">
                 {activityData && <ActivityChart data={activityData.sessions} />}
-                <AverageSessionsChart data={averageSessionsData} />
-                {performanceData && <PerformanceRadarChart data={performanceData} />}
-                <ScoreChart score={score} />
+                <div className="charts-bottom-grid">
+                    <AverageSessionsChart data={averageSessionsData} />
+                    {performanceData && <PerformanceRadarChart data={performanceData} />}
+                    <ScoreChart score={score} />
+                </div>
                 {keyData && (
                     <div className="keydata-container">
                         <div className="keydata-item">

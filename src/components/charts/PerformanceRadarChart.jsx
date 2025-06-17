@@ -10,10 +10,14 @@ function PerformanceRadarChart({ data }) {
 
     return (
         <div className="radar-card">
-            <ResponsiveContainer width="100%" height={250}>
-                <RadarChart data={formattedData}>
+            <ResponsiveContainer width="100%" height="100%">
+                <RadarChart data={formattedData} outerRadius="50%">
                     <PolarGrid />
-                    <PolarAngleAxis dataKey="kind" stroke="#fff" tick={{ fontSize: 14 }} />
+                    <PolarAngleAxis 
+                        dataKey="kind" 
+                        stroke="#fff" 
+                        tick={{ fontSize: 10, fill: "#fff" }}
+                    />
                     <Radar dataKey="value" stroke="#FF0101" fill="#FF0101" fillOpacity={0.7} />
                 </RadarChart>
             </ResponsiveContainer>
