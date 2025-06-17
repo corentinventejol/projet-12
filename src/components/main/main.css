@@ -179,7 +179,7 @@
     flex-direction: column;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1450px) {
     body {
         overflow: hidden;
     }
