@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const CustomAverageTooltip = ({ active, payload }) => {
@@ -12,15 +13,39 @@ const CustomAverageTooltip = ({ active, payload }) => {
 };
 
 function AverageSessionsChart({ data }) {
+    const [chartMargin, setChartMargin] = useState({ bottom: 100 });
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth < 1400) {
+                setChartMargin({ bottom: 30 , left: 30, right: 30 });
+            } else {
+                setChartMargin({ bottom: 0, left: 30, right: 30 });
+            }
+        }
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    // Tableau des jours de la semaine pour l'affichage sous la courbe
+    const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+
     return (
         <div className="average-sessions-card">
             <div className="average-sessions-title">Durée moyenne des sessions</div>
             <ResponsiveContainer width="100%" height={200}>
                 <LineChart
                     data={data}
-                    margin={{bottom: 100 }}
+                    margin={chartMargin}
                 >
-                    <XAxis dataKey="dayLabel" axisLine={false} tickLine={false} stroke="#fff" />
+                    <XAxis
+                        dataKey="day"
+                        axisLine={false}
+                        tickLine={false}
+                        stroke="#fff"
+                        tickFormatter={day => days[day - 1]}
+                    />
                     <Tooltip content={<CustomAverageTooltip />} />
                     <Line type="monotone" dataKey="sessionLength" stroke="#fff" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#fff" }} />
                 </LineChart>

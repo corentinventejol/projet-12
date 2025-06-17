@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 
 function PerformanceRadarChart({ data }) {
@@ -8,10 +9,26 @@ function PerformanceRadarChart({ data }) {
         kind: data.kind[item.kind]
     }));
 
+    // Ajout : gestion du responsive pour outerRadius
+    const [outerRadius, setOuterRadius] = useState("70%");
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth < 1400) {
+                setOuterRadius("50%");
+            } else {
+                setOuterRadius("70%");
+            }
+        }
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
         <div className="radar-card">
             <ResponsiveContainer width="100%" height="100%">
-                <RadarChart data={formattedData} outerRadius="50%">
+                <RadarChart data={formattedData} outerRadius={outerRadius}>
                     <PolarGrid />
                     <PolarAngleAxis 
                         dataKey="kind" 
