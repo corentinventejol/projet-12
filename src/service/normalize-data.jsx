@@ -3,12 +3,8 @@ import axios from 'axios';
 
 const useApi = import.meta.env.VITE_USE_API === 'true';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-const DEFAULT_USER_ID = 12;
 
 export async function normalizeUsers(userId) {
-    const useApi = import.meta.env.VITE_USE_API === 'true';
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
     if (useApi) {
         if (!userId) return [];
         try {
