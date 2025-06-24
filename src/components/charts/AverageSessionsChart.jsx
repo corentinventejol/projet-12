@@ -14,13 +14,16 @@ const CustomAverageTooltip = ({ active, payload }) => {
 
 function AverageSessionsChart({ data }) {
     const [chartMargin, setChartMargin] = useState({ bottom: 100 });
+    const [chartHeight, setChartHeight] = useState(200);
 
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth < 1400) {
-                setChartMargin({ bottom: 30 , left: 30, right: 30 });
+                setChartMargin({ bottom: 30, left: 0, right: 0 });
+                setChartHeight(150);
             } else {
                 setChartMargin({ bottom: 0, left: 30, right: 30 });
+                setChartHeight(200);
             }
         }
         handleResize();
@@ -34,7 +37,7 @@ function AverageSessionsChart({ data }) {
     return (
         <div className="average-sessions-card">
             <div className="average-sessions-title">Durée moyenne des sessions</div>
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={chartHeight}>
                 <LineChart
                     data={data}
                     margin={chartMargin}
