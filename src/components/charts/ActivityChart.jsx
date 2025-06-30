@@ -15,7 +15,19 @@ const CustomTooltip = ({ active, payload }) => {
 function ActivityChart({ data }) {
     return (
         <div className="recharts-container">
-            <h2>Activité quotidienne</h2>
+            <div className="recharts-header">
+                <h2>Activité quotidienne</h2>
+                <div className="recharts-legend">
+                    <div className="legend-item">
+                        <div className="legend-dot legend-dot-weight"></div>
+                        <span className="legend-text legend-text-weight">Poids (kg)</span>
+                    </div>
+                    <div className="legend-item">
+                        <div className="legend-dot legend-dot-calories"></div>
+                        <span className="legend-text legend-text-calories">Calories brûlées (kCal)</span>
+                    </div>
+                </div>
+            </div>
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={data} barGap={8}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -30,16 +42,6 @@ function ActivityChart({ data }) {
                     />
                     <YAxis yAxisId="cal" dataKey="calories" hide={true} />
                     <Tooltip content={<CustomTooltip />} />
-                    <Legend
-                        verticalAlign="top"
-                        align="right"
-                        iconType="circle"
-                        formatter={(value) =>
-                            value === "kilogram"
-                                ? <span style={{ color: "#282D30" }}>Poids (kg)</span>
-                                : <span style={{ color: "#E60000" }}>Calories brûlées (kCal)</span>
-                        }
-                    />
                     <Bar
                         yAxisId="kg"
                         dataKey="kilogram"

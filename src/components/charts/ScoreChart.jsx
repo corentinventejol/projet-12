@@ -16,6 +16,13 @@ const ScoreChart = ({ score }) => {
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
+              data={[{ value: 1 }]}
+              innerRadius="0%"
+              outerRadius="70%"
+              fill="white"
+              dataKey="value"
+            />
+            <Pie
               data={data}
               innerRadius="70%"
               outerRadius="90%"

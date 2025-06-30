@@ -4,173 +4,106 @@ import axios from 'axios';
 const useApi = import.meta.env.VITE_USE_API === 'true';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
+// Fonction utilitaire pour les appels API
+async function fetchFromApi(endpoint) {
+    try {
+        const response = await axios.get(`${API_URL}${endpoint}`);
+        return response.data && response.data.data ? response.data.data : null;
+    } catch (error) {
+        console.error(`Erreur API ${endpoint}:`, error);
+        return null;
+    }
+}
+
+// Fonction utilitaire pour récupérer les données utilisateur
+async function getUserData(userId) {
+    if (useApi) {
+        return await fetchFromApi(`/user/${userId}`);
+    } else {
+        return USER_MAIN_DATA.find(user => user.id === userId) || null;
+    }
+}
+
 export async function normalizeUsers(userId) {
-    if (useApi) {
-        if (!userId) return [];
-        try {
-            const response = await axios.get(`${API_URL}/user/${userId}`);
-            const user = response.data && response.data.data ? response.data.data : null;
-            if (!user) return [];
-            return [{
-                id: user.id,
-                firstName: user.userInfos.firstName,
-                lastName: user.userInfos.lastName,
-                age: user.userInfos.age,
-                score: user.score || user.todayScore || 0,
-                keyData: user.keyData
-            }];
-        } catch (error) {
-            console.error('Erreur API normalizeUsers:', error);
-            return [];
-        }
-    } else {
-        const user = USER_MAIN_DATA.find(user => user.id === userId);
-        if (!user) return [];
-        return [{
-            id: user.id,
-            firstName: user.userInfos.firstName,
-            lastName: user.userInfos.lastName,
-            age: user.userInfos.age,
-            score: user.score || user.todayScore || 0,
-            keyData: user.keyData
-        }];
-    }
+    if (!userId && useApi) return [];
+    
+    const user = await getUserData(userId);
+    if (!user) return [];
+    
+    return [{
+        id: user.id,
+        firstName: user.userInfos.firstName,
+        lastName: user.userInfos.lastName,
+        age: user.userInfos.age,
+        score: user.score || user.todayScore || 0,
+        keyData: user.keyData
+    }];
 }
 
-export async function normalizeActivity(userId = DEFAULT_USER_ID) {
+export async function normalizeActivity(userId) {
+    let activityData;
+    
     if (useApi) {
-        try {
-            const response = await axios.get(`${API_URL}/user/${userId}/activity`);
-            const user = response.data && response.data.data ? response.data.data : null;
-            return user
-                ? {
-                    userId: user.userId,
-                    sessions: user.sessions.map(session => ({
-                        day: session.day,
-                        kilogram: session.kilogram,
-                        calories: session.calories
-                    }))
-                }
-                : null;
-        } catch (error) {
-            console.error('Erreur API activity:', error);
-            return null;
-        }
+        activityData = await fetchFromApi(`/user/${userId}/activity`);
     } else {
-        const user = USER_ACTIVITY.find(activity => activity.userId === userId);
-        return user
-            ? {
-                userId: user.userId,
-                sessions: user.sessions.map(session => ({
-                    day: session.day,
-                    kilogram: session.kilogram,
-                    calories: session.calories
-                }))
-            }
-            : null;
+        activityData = USER_ACTIVITY.find(activity => activity.userId === userId);
     }
+    
+    return activityData ? {
+        userId: activityData.userId,
+        sessions: activityData.sessions.map(session => ({
+            day: session.day,
+            kilogram: session.kilogram,
+            calories: session.calories
+        }))
+    } : null;
 }
 
-export async function normalizeAverageSessions(userId = DEFAULT_USER_ID) {
+export async function normalizeAverageSessions(userId) {
+    let sessionData;
+    
     if (useApi) {
-        try {
-            const response = await axios.get(`${API_URL}/user/${userId}/average-sessions`);
-            const user = response.data && response.data.data ? response.data.data : null;
-            return user ? user.sessions.map(s => ({
-                day: s.day,
-                sessionLength: s.sessionLength
-            })) : [];
-        } catch (error) {
-            console.error('Erreur API average-sessions:', error);
-            return [];
-        }
+        sessionData = await fetchFromApi(`/user/${userId}/average-sessions`);
     } else {
-        const user = USER_AVERAGE_SESSIONS.find(session => session.userId === userId);
-        return user ? user.sessions.map(s => ({
-            day: s.day,
-            sessionLength: s.sessionLength
-        })) : [];
+        sessionData = USER_AVERAGE_SESSIONS.find(session => session.userId === userId);
     }
+    
+    return sessionData ? sessionData.sessions.map(s => ({
+        day: s.day,
+        sessionLength: s.sessionLength
+    })) : [];
 }
 
-export async function normalizePerformance(userId = DEFAULT_USER_ID) {
+export async function normalizePerformance(userId) {
+    let performanceData;
+    
     if (useApi) {
-        try {
-            const response = await axios.get(`${API_URL}/user/${userId}/performance`);
-            const user = response.data && response.data.data ? response.data.data : null;
-            return user
-                ? {
-                    userId: user.userId,
-                    kind: user.kind,
-                    data: user.data.map(d => ({
-                        value: d.value,
-                        kind: d.kind
-                    }))
-                }
-                : { userId: userId, kind: {}, data: [] };
-        } catch (error) {
-            console.error('Erreur API performance:', error);
-            return { userId: userId, kind: {}, data: [] };
-        }
+        performanceData = await fetchFromApi(`/user/${userId}/performance`);
     } else {
-        const user = USER_PERFORMANCE.find(performance => performance.userId === userId);
-        return user
-            ? {
-                userId: user.userId,
-                kind: user.kind,
-                data: user.data.map(d => ({
-                    value: d.value,
-                    kind: d.kind
-                }))
-            }
-            : { userId: userId, kind: {}, data: [] };
+        performanceData = USER_PERFORMANCE.find(performance => performance.userId === userId);
     }
+    
+    return performanceData ? {
+        userId: performanceData.userId,
+        kind: performanceData.kind,
+        data: performanceData.data.map(d => ({
+            value: d.value,
+            kind: d.kind
+        }))
+    } : { userId: userId, kind: {}, data: [] };
 }
 
-export async function normalizeScore(userId = DEFAULT_USER_ID) {
-    if (useApi) {
-        try {
-            const response = await axios.get(`${API_URL}/user/${userId}`);
-            const user = response.data && response.data.data ? response.data.data : null;
-            return user ? user.score || user.todayScore || 0 : 0;
-        } catch (error) {
-            console.error('Erreur API score:', error);
-            return 0;
-        }
-    } else {
-        const user = USER_MAIN_DATA.find(user => user.id === userId);
-        return user ? user.score || user.todayScore || 0 : 0;
-    }
+export async function normalizeScore(userId) {
+    const user = await getUserData(userId);
+    return user ? user.score || user.todayScore || 0 : 0;
 }
 
-export async function normalizeKeyData(userId = DEFAULT_USER_ID) {
-    if (useApi) {
-        try {
-            const response = await axios.get(`${API_URL}/user/${userId}`);
-            const user = response.data && response.data.data ? response.data.data : null;
-            return user ? user.keyData : null;
-        } catch (error) {
-            console.error('Erreur API keyData:', error);
-            return null;
-        }
-    } else {
-        const user = USER_MAIN_DATA.find(user => user.id === userId);
-        return user ? user.keyData : null;
-    }
+export async function normalizeKeyData(userId) {
+    const user = await getUserData(userId);
+    return user ? user.keyData : null;
 }
 
-export async function normalizeFirstName(userId = DEFAULT_USER_ID) {
-    if (useApi) {
-        try {
-            const response = await axios.get(`${API_URL}/user/${userId}`);
-            const user = response.data && response.data.data ? response.data.data : null;
-            return user ? user.userInfos.firstName : '';
-        } catch (error) {
-            console.error('Erreur API firstName:', error);
-            return '';
-        }
-    } else {
-        const user = USER_MAIN_DATA.find(user => user.id === userId);
-        return user ? user.userInfos.firstName : '';
-    }
+export async function normalizeFirstName(userId) {
+    const user = await getUserData(userId);
+    return user ? user.userInfos.firstName : '';
 }

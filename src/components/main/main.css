@@ -24,7 +24,7 @@
     display: grid;
     grid-template-columns: 3fr 3fr 3fr 2fr;
     grid-template-rows: auto auto;
-    gap: 2rem;
+    gap: 1.7rem;
     width: 100%;
     align-items: start;
 }
@@ -38,10 +38,57 @@
     grid-row: 1;
 }
 
-.custom-tooltip {
-    border-radius: 4px;
-    font-size: 12px;
-    line-height: 1.5;
+.recharts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.recharts-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #20253A;
+}
+
+.recharts-legend {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.legend-dot-weight {
+    background-color: #282D30;
+}
+
+.legend-dot-calories {
+    background-color: #E60000;
+}
+
+.legend-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.legend-text-weight {
+    color: #282D30;
+}
+
+.legend-text-calories {
+    color: #E60000;
 }
 
 .keydata-container {
@@ -195,7 +242,7 @@
     }
 
     .charts-bottom-grid {
-        width: 159%;
+        width: 169%;
         padding: 2rem;
         padding-top: 0;
     }
