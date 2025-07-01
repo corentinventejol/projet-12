@@ -186,7 +186,7 @@
 
 .score-card-center {
     position: absolute;
-    top: 66%;
+    top: 54%;
     left: 50%;
     transform: translate(-50%, -45%);
     text-align: center;
@@ -261,5 +261,13 @@
 
     .recharts-surface {
         height: 70%;
+    }
+
+    .score-card-percent {
+        font-size: 1rem;
+    }
+
+    .score-card-objectif {
+        font-size: 0.8rem;
     }
 }
