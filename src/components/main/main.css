@@ -50,12 +50,16 @@
     font-size: 1.5rem;
     font-weight: 500;
     color: #20253A;
+    padding-top: 10px;
+    padding-left: 10px;
 }
 
 .recharts-legend {
     display: flex;
     gap: 20px;
     align-items: center;
+    padding-top: 10px;
+    padding-right: 10px;
 }
 
 .legend-item {
