@@ -10,13 +10,16 @@ function PerformanceRadarChart({ data }) {
     }));
 
     const [outerRadius, setOuterRadius] = useState("70%");
+    const [polarRadius, setPolarRadius] = useState([20, 40, 60, 80]);
 
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth < 1400) {
-                setOuterRadius("50%");
+                setOuterRadius("60%");
+                setPolarRadius([8, 16, 24, 32]);
             } else {
-                setOuterRadius("90%");
+                setOuterRadius("80%");
+                setPolarRadius([16, 32, 48, 64]);
             }
         }
         handleResize();
@@ -29,7 +32,7 @@ function PerformanceRadarChart({ data }) {
             <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={formattedData} outerRadius={outerRadius}>
                     <PolarGrid 
-                        polarRadius={[16, 32, 48, 64]}
+                        polarRadius={polarRadius}
                         stroke="#fff"
                     />
                     <PolarAngleAxis 
