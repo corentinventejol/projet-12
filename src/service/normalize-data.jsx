@@ -25,19 +25,24 @@ async function getUserData(userId) {
 }
 
 export async function normalizeUsers(userId) {
-    if (!userId && useApi) return [];
-    
-    const user = await getUserData(userId);
-    if (!user) return [];
-    
-    return [{
-        id: user.id,
-        firstName: user.userInfos.firstName,
-        lastName: user.userInfos.lastName,
-        age: user.userInfos.age,
-        score: user.score || user.todayScore || 0,
-        keyData: user.keyData
-    }];
+    try {
+        if (!userId && useApi) return [];
+
+        const user = await getUserData(userId);
+        if (!user) return [];
+
+        return [{
+            id: user.id,
+            firstName: user.userInfos.firstName,
+            lastName: user.userInfos.lastName,
+            age: user.userInfos.age,
+            score: user.score || user.todayScore || 0,
+            keyData: user.keyData
+        }];
+    }catch (error) {
+    console.error(`Erreur lors de la normalisation des données utilisateur pour l'ID ${userId}:`, error);
+    }
+
 }
 
 export async function normalizeActivity(userId) {

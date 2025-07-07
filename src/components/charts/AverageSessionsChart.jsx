@@ -20,7 +20,7 @@ function AverageSessionsChart({ data }) {
     useEffect(() => {
         function handleResize() {
             if (window.innerWidth < 1400) {
-                setChartMargin({ bottom: 30, left: 0, right: 0, top: 7 });
+                setChartMargin({ bottom: 30, left: 5, right: 5, top: 7 });
                 setChartHeight(150);
             } else {
                 setChartMargin({ bottom: 0, left: 5, right: 5, top: 7 });
